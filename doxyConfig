@@ -1,0 +1,5 @@
+PROJECT_NAME     = ProjetVent
+INPUT            = ./ ./src
+WARNINGS         = YES
+FILE_PATTERNS    = *.c *.h *.dox
+OUTPUT_DIRECTORY = doc

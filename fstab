@@ -1,0 +1,2 @@
+#USB
+/dev/sdb1	/home/iris/USB	vfat,ntfs	user,noauto	0	0
