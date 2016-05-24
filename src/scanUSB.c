@@ -61,13 +61,15 @@ int main(int argc, char **argv)
       /* if (strstr(fileList->d_name, "sdb1") != NULL)*/
          if (strncmp(fileList->d_name, "sdb1", 4) == 0)
          {
-            //printf("%s\n", fileList->d_name) ;
+            #ifdef DEBUG
+            printf("\t > %s\n", fileList->d_name) ;
+            #endif
+            
             if (!executed)
             {
                timeExecuted = time(NULL) ;
 /*             HACK wait for udev mount partition */
                sleep(5) ;
-
                system(CMD) ;
 
                executed = !executed ;

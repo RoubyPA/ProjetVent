@@ -17,8 +17,8 @@
 typedef struct DataStruct DataStruct ;
 struct DataStruct
 {
-	int 						id ;
+	int 				id ;
 	unsigned long 	date ;
-	unsigned int 		vitesse ;
-	char 						direction[4] ;
+	unsigned int 	vitesse ;
+	char 				direction[4] ;
 } ;

@@ -66,14 +66,14 @@ int main(int argc, char* argv[])
 	if (returnValue)
 	{
 		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db)) ;
-    exit( EXIT_FAILURE ) ;
-  }
+      exit( EXIT_FAILURE ) ;
+   }
 
 /* Creation de la requette SQL   */
-	sprintf(sql,
-					"INSERT INTO %s (%s,%s,%s) VALUES (\'%s\', \'%s\', \'%s\');",
-					TABLES, CHAMP_VITESSE, CHAMP_DIRECTION, CHAMP_PERIODE,
-          vitesse, direction, periode ) ;
+	sprintf(	sql,
+				"INSERT INTO %s (%s,%s,%s) VALUES (\'%s\', \'%s\', \'%s\');",
+				TABLES, CHAMP_VITESSE, CHAMP_DIRECTION, CHAMP_PERIODE,
+            vitesse, direction, periode ) ;
 
 /*	add delete sql request	*/
 	strcat(sql, SQL_DELETE) ;

@@ -1,45 +1,115 @@
-# 		Fichier : 		makefile
-# 		Projet :			Projet vent
-#		Date edition :	2016
-#		Créer par :		Rouby Pierre-Antoine
+################################################################################
+# 		Fichier : 		makefile																	 #
+# 		Projet :			Projet vent																 #
+#		Date edition :	2016																		 #
+#		Créer par :		Rouby Pierre-Antoine													 #
+################################################################################
 
-DFLAG=
-#-DDEBUG
+DEBUG=yes
+CC=gcc
+dox=doxygen
+binPath=./bin/
+binPathPi=./bin/pi/
+binPathServ=./bin/server/
+binPath=./bin/
+srcPath=./src/
+objPath=./obj/
+docPath=./doc/
+installPiDir=/home/pi/ProjetVent/
+installServDir=/home/adminvent/ProjetVent/
 
-all : comparaison2db localSave scanUSB
+# DEBUG
+ifeq ($(DEBUG),yes)
+	CFLAGS=-Wall -pedantic
+	LDFLAGS=
+	DFLAGS=-DDEBUG
+else
+	CFLAGS=-W
+	LDFLAGS=
+	DFLAGS=
+endif
+
+# make all programme
+all : mkrep comparaison2db localSave scanUSB
+
+# make programme for server
+server : rmdir mkrep comparaison2db
+
+# make programme for rpi
+rpi : rmdir mkrep localSave scanUSB
+
+################################################################################
+# Compilation instruction																		 #
+################################################################################
 
 # Comparaison2db
-comparaison2db : mysqlTool.o sqliteTool.o main.o
-	gcc main.o sqliteTool.o mysqlTool.o -lmysqlclient -lsqlite3 -o comparaison2db
+comparaison2db : $(objPath)mysqlTool.o $(objPath)sqliteTool.o $(objPath)main.o
+	$(CC) $(objPath)main.o $(objPath)sqliteTool.o $(objPath)mysqlTool.o \
+	-lmysqlclient -lsqlite3 -o $(binPathServ)comparaison2db
 
-main.o : src/main.c
-	gcc -Wall -c src/main.c $(DFLAG) -o main.o
+$(objPath)main.o : $(srcPath)main.c
+	$(CC) -c $(srcPath)main.c $(CFLAGS) $(DFLAGS) -o $(objPath)main.o
 
-sqliteTool.o : src/sqliteTool.c
-	gcc -Wall -c src/sqliteTool.c $(DFLAG) -o sqliteTool.o
+$(objPath)sqliteTool.o : $(srcPath)sqliteTool.c
+	$(CC) -c $(srcPath)sqliteTool.c $(CFLAGS) $(DFLAGS) -o $(objPath)sqliteTool.o
 
-mysqlTool.o : src/mysqlTool.c
-	gcc -Wall -c src/mysqlTool.c $(DFLAG) -o mysqlTool.o
-
-# localSave
-localSave : src/localSave.c
-	gcc -Wall -l sqlite3 src/localSave.c -o localSave
+$(objPath)mysqlTool.o : $(srcPath)mysqlTool.c
+	$(CC) -c $(srcPath)mysqlTool.c $(CFLAGS) $(DFLAGS) -o $(objPath)mysqlTool.o
 
 # localSave
-scanUSB : src/scanUSB.c
-	gcc -Wall src/scanUSB.c -o scanUSB
+localSave : $(srcPath)localSave.c
+	$(CC) -l sqlite3 $(srcPath)localSave.c $(CFLAGS) $(DFLAGS) \
+	-o $(binPathPi)localSave
 
-# Install
-install : all clean
+# scanUSB
+scanUSB : $(srcPath)scanUSB.c
+	$(CC) $(srcPath)scanUSB.c $(CFLAGS) $(DFLAGS) -o $(binPathPi)scanUSB
+
+################################################################################
+# Directorie																						 #
+################################################################################
+mkrep :
+	mkdir bin/server
+	mkdir obj
+
+# rmdir
+rmdir :
+	rm -r $(objPath)
+	rm -r $(binPathServ)
+
+
+################################################################################
+# Install																							 #
+################################################################################
+
+installPi : rpi
+	mkdir $(installPiDir)
+	# Copy programme
+	cp $(binPathPi)autostart.pl $(installPiDir)autostart.pl
+	cp $(binPathPi)localSave $(installPiDir)localSave
+	cp $(binPathPi)scanUSB $(installPiDir)scanUSB
+	# make scanUSB a daemon
+	ln -s $(installPiDir)scanUSB /etc/init.d/scanUSB
+	update-rc.d scanUSB default
+	# cp database
+	mkdir $(installPiDir)data/
+	cp data/local.sqlite $(installPiDir)data/local.sqlite
+
+# /home/adminvent/ProjetVent
+installServer : clean
+	mkdir $(installServDir)
+	# Copy programme
+	cp $(binPathServ)comparaison2db
+
 
 # Doc
 doc :
-	doxygen doxyConfig
+	$(dox) doxyConfig
 
 # cleandoc
 cleandoc :
-	rm -rf ./doc/
+	rm -rf $(docPath)
 
 # Clean
 clean :
-	rm -vf *.o
+	rm -vf $(objPath)*.o
