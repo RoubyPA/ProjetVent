@@ -1,10 +1,10 @@
 #! /usr/bin/perl
 #
-# \file    autostart
-# \brief   Projet vent
-#          Perl 5
-# \date    2016
-# \author  Rouby Pierre-Antoine
+# File      autostart
+# Brief     Projet vent
+#           Perl 5
+# Date      2016
+# Author :  Rouby Pierre-Antoine
 #
 use strict ;
 use warnings ;

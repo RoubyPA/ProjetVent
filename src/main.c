@@ -88,7 +88,8 @@ int main(int argc, char **argv)
 				else
 				{
 					#ifdef DEBUG
-					printf(	"\nData %d exist with no error on mysql database at id : %d\n",
+					printf(	"\nData %d exist with no error on mysql database \
+at id : %d\n",
 								listDataSqlite[dataIndex].id, returnValue) ;
 					#endif
 				}

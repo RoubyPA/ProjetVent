@@ -4,7 +4,7 @@
  *	\author 	Rouby Pierre-Antoine
  * \version 1.0
  *	\brief 	Sauvegarde les donner envoier sur la base de données local
- *
+ *				(sqlit3)
  */
 
 #include <stdio.h>
@@ -33,10 +33,13 @@
  */
 int main(int argc, char* argv[])
 {
-	sqlite3 			*db ;                          /* Base de données SQLite   */
+/* Base de données SQLite   */
+	sqlite3 			*db ;
 	int 				returnValue ;
-	char 				*errMsg 	   = 0 ;              /* Variable de recuperation des message d'erreurs   */
-	char 				*sql 			= malloc(1024) ;   /* Requete sql   */
+/* Variable de recuperation des message d'erreurs   */
+	char 				*errMsg 	   = 0 ;
+/* Requete sql   */
+	char 				*sql 			= malloc(1024) ;
 /* Variables des données à enregister  */
 	char				*vitesse 	= malloc(32) ;
 	char 				*direction 	= malloc(32) ;
@@ -46,7 +49,9 @@ int main(int argc, char* argv[])
 /*	Verification des arguments */
 	if (argc < 4)
 	{
-		fprintf(stderr, "Usage : %s [vitesse] [direction] [periode]\n", argv[0] ) ;
+		fprintf(	stderr, 
+					"Usage : %s [vitesse] [direction] [periode]\n",
+					argv[0] ) ;
 		exit( EXIT_FAILURE ) ;
 	}
 
@@ -55,8 +60,6 @@ int main(int argc, char* argv[])
 	direction 	= argv[2] ;
 	periode		= argv[3] ;
 	longDate 	= atol(periode) ;
-
-	printf("%ld\n", longDate) ;
 
 /*	Periode - 8930	*/
 	longDate = longDate - 8930 ;
@@ -80,7 +83,9 @@ int main(int argc, char* argv[])
 	sprintf(periode, "%ld ;", longDate) ;
 	strcat(sql, periode) ;
 
+	#ifdef DEBUG
 	printf("%s\n", sql) ;
+	#endif
 
 /* Execution de la requete SQL   */
 /*	HACK no Callback fonction 		*/

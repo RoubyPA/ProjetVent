@@ -29,8 +29,10 @@ int			dataIndex 	= 0 ;
 char			*zErrMsg		= 0 ;
 const char  *data 		= "sqliteCallback fonction call" ;
 sqlite3		*db ;
+
 /* Variable extern   */
-extern		DataStruct   listDataSqlite    [MAX_DATA_NUMBER] ; // Recuperation du tableau de structure definie dans le main.h
+/* Recuperation du tableau de structure definie dans le main.h */
+extern		DataStruct   listDataSqlite    [MAX_DATA_NUMBER] ;
 extern      char         hostNameStation   [64] ;
 
 /*	Prototype	*/

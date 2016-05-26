@@ -64,25 +64,22 @@ int main(int argc, char **argv)
             #ifdef DEBUG
             printf("\t > %s\n", fileList->d_name) ;
             #endif
-            
+
             if (!executed)
             {
                timeExecuted = time(NULL) ;
 /*             HACK wait for udev mount partition */
                sleep(5) ;
                system(CMD) ;
-
                executed = !executed ;
             }
          }
-
 /*       reinit (bool)executed */
          if (executed == true && time(NULL) >= (timeExecuted+10) )
          {
             executed = false ;
          }
       }
-
       sleep(1) ;
 /*    return to beginning of fileList */
       seekdir(repDev, 0) ;
@@ -100,10 +97,6 @@ int main(int argc, char **argv)
  */
 void killDaemon(int signum)
 {
-	/*fprintf( stderr,
-            "Signal resu n°%d\n",
-            signum) ;
-   */
    if (signum != 17)
    {
       closedir(repDev) ;

@@ -21,15 +21,19 @@
 #define DATA_BASE       "donnees_meteo"
 #define TABLE_INFO      "Informations_vents"
 #define TABLE_STATION   "Station(s)"
-#define SQL_SELECT      "SELECT * FROM Informations_vents WHERE Station_idStation = "
-#define SQL_INSERT      "INSERT INTO Informations_vents (Vitesse, Periode, Direction, Station_idStation) VALUES ("
+#define SQL_SELECT      "SELECT * FROM Informations_vents WHERE \
+Station_idStation = "
+#define SQL_INSERT      "INSERT INTO Informations_vents (Vitesse, Periode, \
+Direction, Station_idStation) VALUES ("
 #define SQL_GET_ID      "SELECT idStation from `Station(s)` WHERE Nom = \'"
 
 /* Variable globale	*/
 MYSQL	   mysql ;
 char     idStation[16] ;
+
 /* Variable extern   */
-extern   DataStruct  listDataSqlite    [MAX_DATA_NUMBER] ; // Recuperation du tableau de structure definie dans le main.h
+/* Recuperation du tableau de structure definie dans le main.h  */
+extern   DataStruct  listDataSqlite    [MAX_DATA_NUMBER] ;
 extern   char        hostNameStation   [64] ;
 
 /*	Prototype	*/

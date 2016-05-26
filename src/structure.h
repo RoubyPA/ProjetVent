@@ -12,7 +12,7 @@
 /*!
  *	\struct 	DataStruct
  * \typedef DataStruct
- * \brief	Permet d'enregister les données extraite de la base sqlite.
+ * \brief	Permet stocker les donnees extraite de la base sqlite.
  */
 typedef struct DataStruct DataStruct ;
 struct DataStruct

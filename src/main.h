@@ -15,10 +15,12 @@
 #include "structure.h"
 
 /* Usage */
-#define USAGE "Usage : comparaison2db [sqlite db] [hostName] [ip (mysql serveur)] "
+#define USAGE "Usage : comparaison2db [sqlite db] [hostName] \
+[ip (mysql serveur)] "
 
 /*	Variable globale	*/
-DataStruct  listDataSqlite    [MAX_DATA_NUMBER] ; // Definition du tableau de structure
+/* Definition du tableau de structure */
+DataStruct  listDataSqlite    [MAX_DATA_NUMBER] ;
 char        hostNameStation   [64] ;
 
 /*	Prototype	*/

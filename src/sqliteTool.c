@@ -42,7 +42,6 @@ bool sqliteInit(const char *dataBaseName)
 
 /*	last data id = NULL	*/
 	listDataSqlite[dataIndex].id = 0 ;
-
 	sqliteClose() ;
 
 	#ifdef DEBUG
@@ -53,13 +52,15 @@ bool sqliteInit(const char *dataBaseName)
 }
 
 /*!
- * \fn 		static int sqliteCallback(void *data, int idMax, char **value, char **champ)
+ * \fn 		static int sqliteCallback(
+ 				void *data, int idMax, char **value, char **champ)
  * \brief	Foncton de Callback pour la recuperation des valeur.
  *
  * \param	data Données optionel envoie a la fonction
  * \param	idMax Nombre de données
  * \param	value Valeur envoier dans un tableau de caratere
- * \param	champ Valeur des champ de la base de donnée dans un tableau de caratere
+ * \param	champ Valeur des champ de la base de donnée
+ 				dans un tableau de caratere
  * \return 	EXIT_SUCCESS
  */
 static int sqliteCallback(void *data, int idMax, char **value, char **champ)
@@ -79,15 +80,17 @@ static int sqliteCallback(void *data, int idMax, char **value, char **champ)
 		else if (strcmp(champ[i], CHAMP_DIRECTION) == 0)
 			strcpy(listDataSqlite[dataIndex].direction, value[i]) ;
 		else
-			fprintf(stderr, "Error champ inconnu\n") ;
+			fprintf(stderr, "Error champ inconnu (%s)\n", champ[i]) ;
 
 		#ifdef DEBUG
 		printf("%s\t%s\n", champ[i], value[i]);
 		#endif
 	}
 
-/*	HACK Best solution ? */
-/*	init next struct data	*/
+/*	Init next struct data
+ *		HACK 	For find end of tables in main.c
+ *				[while(listDataSqlite[dataIndex].id != 0)]
+ */
 	listDataSqlite[dataIndex+1].id 			= 0 ;
 	listDataSqlite[dataIndex+1].date 		= 0 ;
 	listDataSqlite[dataIndex+1].vitesse 	= 0 ;

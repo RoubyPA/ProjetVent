@@ -85,7 +85,7 @@ int isExistOnMysql(const int periode)
 		valueToReturn = -1 ;
 	}
 
-/*	Recuperation du retour de la requete sql	*/
+/*	Recuperation du retour de la commande sql	*/
 	result = mysql_store_result(&mysql) ;
 	if (result == NULL)
 	{
@@ -103,6 +103,7 @@ int isExistOnMysql(const int periode)
 
 		if (atoi(row[1]) == periode)
 		{
+/*			Affichage des valeurs uniquement en mode DEBUG	*/
 			#ifdef DEBUG
 			for (i = 0 ; i < row_len ; i++)
 				printf("%s\t", row[i] ? row[i] : NULL) ;
@@ -113,7 +114,6 @@ int isExistOnMysql(const int periode)
 		}
 
 		#ifdef DEBUG
-		//printf("%d != %d\t", atoi(row[1]) , periode) ;
 		for (i = 0 ; i < row_len ; i++)
 		{
 			printf("%s\t", row[i] ? row[i] : NULL) ;
@@ -193,6 +193,7 @@ int verifValue(const int idLocal)
 	{
 		if (atoi(row[1]) == listDataSqlite[idLocal].date)
 		{
+/*			Affichage des valeurs uniquement en mode DEBUG	*/
 			#ifdef DEBUG
 			for (i = 0 ; i < row_len ; i++)
 				fprintf(stderr, "%s\t", row[i] ? row[i] : NULL) ;
@@ -220,7 +221,7 @@ int verifValue(const int idLocal)
 
 /*!
  * \fn 		bool InsertIntoMysql(int dataIndex)
- * \brief	enregistrement dans la base de données.
+ * \brief	Enregistrement dans la base de données.
  *
  * \param	dataIndex index dans la struct "listDataSqlite"
  * \return 	true or false if error
@@ -246,10 +247,10 @@ bool InsertIntoMysql(int dataIndex)
 	strcat(sqlRequestInsert, strDirection) ;
 	strcat(sqlRequestInsert, ", ") ;
 	strcat(sqlRequestInsert, idStation) ;
-	strcat(sqlRequestInsert, ") ;") ;
+	strcat(sqlRequestInsert, ") ;") ; /* End of sql commande */
 
 	#ifdef DEBUG
-	printf("Sql request instert %s\n", sqlRequestInsert) ;
+	printf("Sql request instert : %s\n", sqlRequestInsert) ;
 	#endif
 
 /*	Execution de la requete sqlRequestInsert	*/
@@ -304,6 +305,8 @@ void  getStationIdByHostName(void)
 	{
 		strcpy(idStation, row[0]) ;
 	}
+
+	return ;
 }
 
 /*!
@@ -315,4 +318,6 @@ void  getStationIdByHostName(void)
 void mysqlCloseConnection(void)
 {
 	mysql_close(&mysql) ;
+
+	return ;
 }
