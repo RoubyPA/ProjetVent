@@ -14,7 +14,7 @@
 /*	to use strcat() */
 #include <string.h>
 
-#define DATA_BASE       "data/local.sqlite"
+#define DATA_BASE       "/home/pi/ProjetVent/data/local.sqlite"
 #define TABLES          "Informations_vents"
 #define CHAMP_ID        "idInformations_vents"
 #define CHAMP_PERIODE   "Periode"
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	longDate 	= atol(periode) ;
 
 /*	Periode - 8930	*/
-	longDate = longDate - 8930 ;
+	longDate = longDate - 5356800 ;
 
 /*	Ouverture de la base de données SQLite */
 	returnValue = sqlite3_open(DATA_BASE, &db) ;

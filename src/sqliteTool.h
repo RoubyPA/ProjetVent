@@ -37,6 +37,6 @@ extern      char         hostNameStation   [64] ;
 
 /*	Prototype	*/
 bool 			sqliteInit		(const char *dataBaseName) ;
-static int 	sqliteCallback	(void *data, int idMax, char **value, char **champ) ;
+static int  sqliteCallback (void *data, int idMax, char **value, char **champ) ;
 void        sqliteClose    (void) ;
 bool        readHostName   (const char *path, char *hostName) ;

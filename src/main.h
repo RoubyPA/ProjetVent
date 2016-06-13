@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+/* extern fonction   */
+#include "main_extern_fn.h"
 /* Structure   */
 #include "structure.h"
 

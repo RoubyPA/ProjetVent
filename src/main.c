@@ -119,7 +119,7 @@ bool init(int argc, char **argv)
 	char	*ipMysql			= argv[3] ;
 
 /*	Recuperation du nom de la station meteo a partir du fichier hostname	*/
-	if(!readHostName(hostNamePath, &hostNameStation) )
+	if(!readHostName(hostNamePath, hostNameStation) )
 	{
 		fprintf(stderr, "HostName non valide\n") ;
 		return false ;

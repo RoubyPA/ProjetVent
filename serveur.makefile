@@ -32,9 +32,7 @@ else
 endif
 
 # make all programme for server
-all : comparaison2db
-
-configure : mkrep
+all : mkrep comparaison2db
 
 ################################################################################
 # Compilation instruction																		 #
@@ -45,13 +43,13 @@ comparaison2db : $(objPath)mysqlTool.o $(objPath)sqliteTool.o $(objPath)main.o
 	$(CC) $(objPath)main.o $(objPath)sqliteTool.o $(objPath)mysqlTool.o \
 	-lmysqlclient -lsqlite3 -o $(binPathServ)comparaison2db
 
-$(objPath)main.o : $(srcPath)main.c
+$(objPath)main.o : $(srcPath)main.c $(srcPath)main.h
 	$(CC) -c $(srcPath)main.c $(CFLAGS) $(DFLAGS) -o $(objPath)main.o
 
-$(objPath)sqliteTool.o : $(srcPath)sqliteTool.c
+$(objPath)sqliteTool.o : $(srcPath)sqliteTool.c $(srcPath)sqliteTool.h
 	$(CC) -c $(srcPath)sqliteTool.c $(CFLAGS) $(DFLAGS) -o $(objPath)sqliteTool.o
 
-$(objPath)mysqlTool.o : $(srcPath)mysqlTool.c
+$(objPath)mysqlTool.o : $(srcPath)mysqlTool.c $(srcPath)mysqlTool.h
 	$(CC) -c $(srcPath)mysqlTool.c $(CFLAGS) $(DFLAGS) -o $(objPath)mysqlTool.o
 
 
@@ -59,8 +57,8 @@ $(objPath)mysqlTool.o : $(srcPath)mysqlTool.c
 # Directorie																						 #
 ################################################################################
 mkrep :
-	mkdir bin/server
-	mkdir obj
+	mkdir -p bin/server
+	mkdir -p obj
 
 # rmdir
 rmdir :
@@ -71,7 +69,7 @@ rmdir :
 ################################################################################
 # Install																							 #
 ################################################################################
-install : clean
+install :
 	mkdir $(installServDir)
 	# Copy programme
 	cp $(binPathServ)comparaison2db
@@ -93,4 +91,8 @@ cleandoc :
 
 # Clean
 clean :
-	rm -vf $(objPath)*.o
+	rm -rvf $(objPath)
+
+cleanhard :
+	rm -rvf $(objPath)
+	rm -rvf $(binPathServ)

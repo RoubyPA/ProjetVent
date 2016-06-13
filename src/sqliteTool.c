@@ -94,7 +94,7 @@ static int sqliteCallback(void *data, int idMax, char **value, char **champ)
 	listDataSqlite[dataIndex+1].id 			= 0 ;
 	listDataSqlite[dataIndex+1].date 		= 0 ;
 	listDataSqlite[dataIndex+1].vitesse 	= 0 ;
-	//listDataSqlite[dataIndex+1].direction 	= NULL ;
+	/*listDataSqlite[dataIndex+1].direction 	= NULL ;*/
 
 	dataIndex++ ;
 

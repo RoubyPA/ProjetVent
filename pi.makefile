@@ -51,8 +51,8 @@ scanUSB : $(srcPath)scanUSB.c
 # Install																							 #
 ################################################################################
 
-install : rpi
-	mkdir $(installPiDir)
+install : 
+	mkdir -p $(installPiDir)
 	# Copy programme
 	cp $(binPathPi)autostart.pl $(installPiDir)autostart.pl
 	cp $(binPathPi)localSave $(installPiDir)localSave
@@ -64,7 +64,7 @@ install : rpi
 	sleep 2
 	update-rc.d -f scanUSB default
 	# cp database
-	mkdir $(installPiDir)data/
+	mkdir -p $(installPiDir)data/
 	cp data/local.sqlite $(installPiDir)data/local.sqlite
 
 ################################################################################

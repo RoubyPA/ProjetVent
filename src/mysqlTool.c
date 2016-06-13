@@ -274,8 +274,7 @@ void  getStationIdByHostName(void)
 {
 	MYSQL_RES 	*result ;
 	MYSQL_ROW 	row ;
-	char 			*sqlGetId = malloc(2048) ; // Requete sql
-
+	char 			*sqlGetId = malloc(2048) ; /* Requete sql */
 	strcpy(sqlGetId, SQL_GET_ID) ;
 	strcat(sqlGetId, hostNameStation) ;
 	strcat(sqlGetId, "\' ;") ;
