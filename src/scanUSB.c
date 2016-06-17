@@ -17,7 +17,9 @@
 #include <stdbool.h>
 
 #define REP_DEV "/dev"
-#define CMD "perl /home/iris/USB/autostart.pl"
+#define CMD "perl /home/pi/ProjetVent/autostart.pl"
+#define CMD_MOUNT "mount /dev/sda1"
+#define CMD_UMOUNT "umount /dev/sda1"
 
 void killDaemon(int signum) ;
 
@@ -59,7 +61,7 @@ int main(int argc, char **argv)
       while((fileList = readdir(repDev)) != NULL)
       {
       /* if (strstr(fileList->d_name, "sdb1") != NULL)*/
-         if (strncmp(fileList->d_name, "sdb1", 4) == 0)
+         if (strncmp(fileList->d_name, "sda1", 4) == 0)
          {
             #ifdef DEBUG
             printf("\t > %s\n", fileList->d_name) ;
@@ -68,9 +70,14 @@ int main(int argc, char **argv)
             if (!executed)
             {
                timeExecuted = time(NULL) ;
-/*             HACK wait for udev mount partition */
-               sleep(5) ;
+/*             Mount USB	*/
+              	system(CMD_MOUNT) ;
+				  	sleep(5) ;
+
                system(CMD) ;
+
+/*					Umount USB	*/
+					system(CMD_UMOUNT) ;
                executed = !executed ;
             }
          }
