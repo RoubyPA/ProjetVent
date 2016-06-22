@@ -4,7 +4,7 @@
  *	\author 	Rouby Pierre-Antoine
  * \version 1.0
  *	\brief 	Sauvegarde les donner envoier sur la base de données local
- *				(sqlit3)
+ *				(sqlite3)
  */
 
 #include <stdio.h>
@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 	periode		= argv[3] ;
 	longDate 	= atol(periode) ;
 
-/*	Periode - 8930	*/
+/*	Periode - 2 mois */
 	longDate = longDate - 5356800 ;
 
 /*	Ouverture de la base de données SQLite */
@@ -89,15 +89,15 @@ int main(int argc, char* argv[])
 
 /* Execution de la requete SQL   */
 /*	HACK no Callback fonction 		*/
-	returnValue = sqlite3_exec(db,
-										sql,
-										NULL,
-										(void*)NULL,
-										&errMsg);
+	returnValue = sqlite3_exec(	db,
+								sql,
+								NULL,
+								(void*)NULL,
+								&errMsg) ;
 	if (returnValue != SQLITE_OK)
 	{
-      fprintf(stderr, "SQLite error: %s\n", errMsg);
-      sqlite3_free(errMsg);
+		fprintf(stderr, "SQLite error: %s\n", errMsg) ;
+		sqlite3_free(errMsg);
   	}
 
 /*	Fermeture de la base de données  */
